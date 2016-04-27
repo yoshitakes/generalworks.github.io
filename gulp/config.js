@@ -12,47 +12,6 @@ var relativeSrcPath = path.relative('.', src); // 後々、つかいます
 var autoprefixer = require('autoprefixer');
 require('babel-core/register');
 
-//webpack_sass用にファイル一覧取得用 TODO チャレンジしたけど、関数本読み終えた後に再チャレンジする。
-//var fs = require("fs")
-//    , path = require("path")
-//    , dir = process.argv[2] || '.'; //引数が無いときはカレントディレクトリを対象とする
-//
-//var walk = function(p, fileCallback, errCallback) {
-//
-//    fs.readdir(p, function(err, files) {
-//        if (err) {
-//            errCallback(err);
-//            return;
-//        }
-//
-//        var list = _.forEach(files, function(f) {
-//            var fp = path.join(p, f); // to full-path
-//            if(fs.statSync(fp).isDirectory()) {
-//                var res = walk(fp, fileCallback); // ディレクトリなら再帰
-//                if (res) {fileCallback(res);}
-//            } else {
-//                var result = f.match(/^([^_]+).scss$/);
-//                if(result) {fileCallback({}[result[1]] = fp);}
-//            }
-//        });
-//
-//        return list;
-//    });
-//};
-//
-//// 使う方
-//var paths = new Array();
-//walk('./public_src/scss',
-//    function(f) {
-//       paths.push(f);
-//       console.log(paths);
-//     },
-//    function(err) {
-//         console.log("Receive err:" + err); // エラー受信
-//     });
-//console.log(paths);
-
-
 module.exports = {
   src: src,
   dest: dest,
@@ -69,12 +28,7 @@ module.exports = {
     // webpackの設定(webpack.config.jsに書く内容をここに記述できる
     webpack: {
       entry: {
-        main: src + '/js/main.js',
-        tasks: src + '/js/tasks.js',
-        label: src + '/js/label.js',
-        project: src + '/js/project.js',
-        routien: src + '/js/routien.js',
-        snippet: src + '/js/snippet.js'
+        main: src + '/js/main.js'
       },
       output: {
         path: __dirname + '/dist',
@@ -86,9 +40,6 @@ module.exports = {
         extensions: ['', '.js']
       },
       plugins: [
-//        new webpack.ResolverPlugin(
-//          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-//        )
           new BowerWebpackPlugin(),//Bowerのjsファイルを参照するプラグイン
           new webpack.ProvidePlugin({
                   jQuery: "jquery",
@@ -125,20 +76,13 @@ module.exports = {
     },
     webpack_sass: {
       entry: {
-        "main": src + '/scss/main.js',
-        "pages/wikipedia": src + '/scss/wikipedia.js',
-        "pages/github": src + '/scss/github.js',
+        "main": src + '/scss/main.js'
       },
-//      //指定パスから、sassの名称があるファイルを取ってくる TODO関数本読んだ後再チャレンジ
-//      entry: walk('./public_src/scss'),
       output: {
 //        path: __dirname + '/stylesheets',
         path: __dirname + "/../" + dest + '/stylesheets',
         filename: '[name].js'
       },
-//      resolve: {
-//          extensions: ['', '.js']
-//      },
       plugins: [
         new ExtractTextPlugin("[name].css")
       ],
@@ -171,8 +115,6 @@ module.exports = {
           js: relativeSrcPath + '/js/**',
           sass: relativeSrcPath + '/scss/**',
           css: relativeSrcPath + '/css/**',
-//          styl: relativeSrcPath + '/styl/**',
-//          jade: relativeSrcPath + '/www/**',
           www: relativeSrcPath + '/www/**'
         },
 }

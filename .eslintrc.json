@@ -1,0 +1,24 @@
+{
+    "env": {
+        "browser": true,
+        "node": false,
+        "es6": true
+    },
+    "extends": "airbnb",
+    "rules": {
+        "semi": ["error", "always"]
+    },
+    "globals": {
+        "require": true,
+        "_": true,
+        "$": true,
+        "module": true,
+        "ActiveXObject": true,
+
+        "jsRoutes": true,
+        "line": true
+    },
+    "plugins": [
+        "react"
+    ]
+}
