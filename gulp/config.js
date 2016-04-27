@@ -108,7 +108,7 @@ module.exports = {
       src: [
         src + '/www/**/*.!(jade)'
       ],
-      dest: dest
+      dest: dest + '/..'
     },
 
     watch: {
