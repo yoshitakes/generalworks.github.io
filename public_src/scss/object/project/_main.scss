@@ -111,13 +111,21 @@ a.big-background-btn {
     backface-visibility:hidden
 }
 
+/* MEMBER SECTION
+================================================== */
+.member-section-position {
 
+}
+
+.member-section-main {
+  font-size: 30px;
+}
 
 /* ABOUT SECTION
 ================================================== */
 .about-section {
     font-family:'Lato',sans-serif;
-    color:#7f8c8d;
+    color:#333;
     background:#fff;
     padding:60px 20px
 }
@@ -126,8 +134,16 @@ a.big-background-btn {
     text-align:center;
     padding-bottom:50px;
 
+    & > dl {
+      margin-top: 20px;
+    }
+
+    & > dl > dt {
+    font-size: 18px;
+    }
+
     & > dl > dd {
-      margin-top: 10px;
+      margin-bottom: 15px;
     }
 }
 

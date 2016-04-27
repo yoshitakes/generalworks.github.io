@@ -466,19 +466,28 @@ a.big-background-btn {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden; }
 
+/* MEMBER SECTION
+================================================== */
+.member-section-main {
+  font-size: 30px; }
+
 /* ABOUT SECTION
 ================================================== */
 .about-section {
   font-family: 'Lato',sans-serif;
-  color: #7f8c8d;
+  color: #333;
   background: #fff;
   padding: 60px 20px; }
 
 .about-section-container {
   text-align: center;
   padding-bottom: 50px; }
+  .about-section-container > dl {
+    margin-top: 20px; }
+  .about-section-container > dl > dt {
+    font-size: 18px; }
   .about-section-container > dl > dd {
-    margin-top: 10px; }
+    margin-bottom: 15px; }
 
 .about-section-title {
   font-family: 'Raleway',sans-serif;
