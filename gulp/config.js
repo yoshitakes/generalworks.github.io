@@ -104,17 +104,17 @@ module.exports = {
        dest: dest + '/stylesheets'
     },
      // copy
-      copy: {
-        src: [
-          src + '/www/**/*.!(jade)'
-        ],
-        dest: dest
-      },
+    copy: {
+      src: [
+        src + '/www/**/*.!(jade)'
+      ],
+      dest: dest
+    },
 
-      watch: {
-          js: relativeSrcPath + '/js/**',
-          sass: relativeSrcPath + '/scss/**',
-          css: relativeSrcPath + '/css/**',
-          www: relativeSrcPath + '/www/**'
-        },
+    watch: {
+      js: relativeSrcPath + '/js/**',
+      sass: relativeSrcPath + '/scss/**',
+      css: relativeSrcPath + '/css/**',
+      www: relativeSrcPath + '/www/**'
+    },
 }

@@ -1,6 +1,7 @@
 // npmパッケージからも読み込める
-var $ = require('jquery');
-
+require('./device.min.js');
+require('./jquery.mb.YTPlayer.js');
+require('./custom.js');
 
 // bowerからも読み込み
 
@@ -13,11 +14,3 @@ var $ = require('jquery');
 // 自分のファイルから読み込み
 // require("./tasks_bk.js");
 // require("./tasks_bk.js");
-
-// test
-document.write(require("./content.js"));
-
-$(function(){
-  var test = $('body#main3');
-  console.log(test.html());
-});

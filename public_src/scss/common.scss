@@ -55,9 +55,6 @@
   ionic (*テスト的に使って見る
 */
 
-@import "../node_modules/bootstrap-sass";
-
-/*
 @import "settings";
 
 @import "foundation/normalize";
@@ -73,13 +70,8 @@
 @import "object/component/alert";
 @import "object/component/icon";
 
-@import "object/project/label";
-@import "object/project/task";
-@import "object/project/project";
-@import "object/project/routien";
-@import "object/project/snippet";
+@import "object/project/main";
 
 @import "object/utility/align";
 @import "object/utility/helper";
 @import "object/utility/utility";
-*/
