@@ -1,0 +1,22 @@
+@(account: Option[Account])(implicit request: Request[AnyContent])
+
+@pc.commonflame(
+            account = account,
+            title = "taluu | just focus now.",
+            description = "taluu | just focus now.") {
+
+    <span id="current_date"></span>
+    <button name="load">Load</button>
+    <button name="save">Save</button>
+    <button name="addComment">addComment</button>
+    <article class="page_top">
+		<section class="task_table">
+			<div id="example"></div>
+		</section>
+        <section>
+            <div id="console"></div>
+        </section>
+	</article>
+
+}
+<script src='@routes.Assets.versioned("js/tasks.js")?ymd=20160322' type="text/javascript"></script>

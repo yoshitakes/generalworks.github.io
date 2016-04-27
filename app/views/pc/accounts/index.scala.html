@@ -1,0 +1,46 @@
+@import constants.Constants
+@import util.playsome.CookieUtil
+@(account: Account, login: Option[Account], isMypage: Boolean)(implicit request: Request[AnyContent])
+
+@pc.commonflame(account = login,
+        title = "ユーザー情報",
+        description = "ユーザー情報 manabook") {
+
+<div class="account pt20 clearfix">
+		@if(isMypage) {
+		<div class="account__side__nav">
+				<div class="account__item">
+					<ul>
+				        <li><a href="@routes.AccountAuthController.update(account.id)">アカウント設定</a></li>
+						<li><a href="@routes.Login.logout">ログアウト</a>	</li>
+					</ul>
+				</div>
+		</div>
+		}
+
+
+    <div class="account__main__contents">
+      <div class="account__main__prof mb20">
+        <div class="account__main__photo" style="background:;">
+          <dl>
+            <dt><img src='@account.imagePath' width="120" height="120"></dt>
+            <dd>@account.fullName</dd>
+          </dl>
+        </div>
+	
+        <div class="account__item_description">
+	      <pre class="wrap">@account.profile</pre>
+            @if(isMypage) {
+            <a class="edit_btn" href="@routes.AccountAuthController.update(account.id)">プロフィールを編集する</a>
+            }
+        </div>
+      </div>
+
+    <!--
+    <div class="nodata">
+        <a class="edit_btn" href="">プロフィールを編集する</a>
+    </div>
+    -->
+    </div>
+</div>
+}

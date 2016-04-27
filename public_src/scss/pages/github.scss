@@ -1,0 +1,404 @@
+@charset "utf-8";
+/* @import "bourbon"; */
+/* @import "neat"; */
+@import "node_modules/bourbon/app/assets/stylesheets/_bourbon.scss";
+@import "node_modules/bourbon-neat/app/assets/stylesheets/_neat.scss";
+
+body {
+    max-width:1300px;
+}
+ol,ul,li {
+  list-style: none;
+}
+
+/* layout */
+header {
+  /* animation-fill-mode: forwards; */
+  animation: header-anime 3600s;
+  background-color: #D50000;
+}
+@keyframes header-anime {
+  from {
+    background-color: #F5F5F5;
+  }
+  to {
+    background-color: #D50000;
+  }
+}
+
+.header-box {
+  width: 980px;
+  margin: 0 auto;
+  padding:8px 0 8px 0;
+  border-bottom: solid 1px #E5E5E5;
+  height: 46px;
+}
+main {
+  margin-top: 18px;
+  width: 100%;
+}
+.inner-main {
+  width: 980px;
+  margin: 0 auto;
+  border-bottom: solid 1px #EEEEEE;
+  overflow: hidden;
+}
+.inner-footer {
+  width: 980px;
+  margin: 50px auto 50px auto;
+  position: relative;
+}
+
+.left-section {
+  float: left;
+  width: 250px;
+
+  h1 {
+    font-weight: bold;
+    font-size: 28px;
+  }
+  h2 {
+    font-weight: normal;
+    font-size: 18px;
+  }
+}
+.right-section {
+  float: left;
+  width: 730px;
+}
+
+/* header */
+.header-box {
+  overflow: hidden;
+}
+
+.header-search {
+  width: 360px;
+  border-radius: 2px;
+  background-color: #fff;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 5px;
+}
+.header-menu {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 12px;
+  overflow: hidden;
+
+  & > ul {
+    li {
+      float: left;
+    }
+  }
+}
+.header-left-components {
+  float: left;
+}
+.header-icons {
+  float:right;
+
+  & > div {
+    float: right;
+    margin: 2px 2px 0 2px;
+  }
+}
+
+/* main left */
+.left-profile-img {
+  display: block;
+  background:url("https://avatars1.githubusercontent.com/u/12643025?v=3&s=460") no-repeat;
+  background-size: 230px 230px;
+  height: 230px;
+  width: 230px;
+  border-radius: 6px;
+}
+
+.left-section {
+  h1 {
+    font-weight: bold;
+    font-size: 28px;
+  }
+  h2 {
+    font-weight: normal;
+    font-size: 18px;
+  }
+}
+
+.left-joindate {
+  padding: 5px 0 5px 0;
+  border-top: solid 1px #EEEEEE;
+  border-bottom: solid 1px #EEEEEE;
+  font-size:10px;
+}
+
+.left-counts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-grow: 100%;
+  width: 100%;
+  font-size: 9px;
+  color: #767676;
+  text-align: center;
+
+  a {
+    display: block;
+    font-size:30px;
+    font-weight: bold;
+    color: #3D75C1;
+  }
+}
+
+/* main right */
+.right-page-changer {
+  overflow: hidden;
+}
+.right-page-changer-tab {
+  font-size: 13px;
+  float: left;
+  width: 125px;
+  text-align: center;
+
+  &.is-active {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top: solid 1px #EEEEEE;
+    border-left: solid 1px #EEEEEE;
+    border-right: solid 1px #EEEEEE;
+  }
+  a {
+    display: inline-block;
+    margin: 10px auto;
+    color: #666666;
+  }
+
+}
+.right-section--header {
+  overflow: hidden;
+}
+.right-page-changer {
+  float: left;
+}
+.right-edit-profile-btn {
+  float: right;
+  line-height: 26px;
+  border: solid 1px #EEEEEE;
+  border-radius: 3px;
+  background: linear-gradient(#FCFCFC, #EFEFEF);
+  text-align: center;
+  padding: 0 12px;
+
+  span {
+    font-weight: bold;
+    font-size: 10px;
+  }
+}
+.right-table {
+  border: solid 1px #EEEEEE;
+  border-radius: 2px;
+  margin-top: 12px;
+
+  & > ul > li {
+    padding:10px 0 10px 10px;
+  }
+}
+
+
+.right-list-title {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.right-repositories-list {
+  overflow: hidden;
+  border-bottom: solid 1px #EEEEEE;
+
+  &:first-child {
+    background-color: #F5F5F5;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+}
+.right-repositories-content {
+  float: left;
+}
+.right-repositories-description {
+  & > div {
+    display: inline-block;
+  }
+  & > div > p {
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: bold;
+    color: #3D76C2;
+  }
+
+  & > div > span {
+    font-size: 9px;
+    line-height: 10px;
+    color: #737373;
+  }
+
+  &:hover div > p{
+    text-decoration: underline;
+  }
+}
+
+.right-repositories-star{
+  float: right;
+  color: #888888;
+  margin-right:10px;
+
+  & > span {
+    font-size: 11px;
+    margin-right:3px;
+    margin-top: 2px;
+  }
+}
+
+.right-contribution-list {
+  overflow: hidden;
+  border-bottom: solid 1px #EEEEEE;
+
+  &:first-child {
+    background-color: #F5F5F5;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.contribution-param-box > ul{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  text-align: center;
+
+  & > li {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+.contribution-table-text {
+  font-size: 10px;
+  color: #767676;
+  a {
+    color: #3D76C2;
+  }
+}
+.contribution-text.small {
+  font-size: 8px;
+  color: #767676;
+  line-height: 12px;
+}
+.contribution-text.large {
+  font-size: 22px;
+  line-height: 24px;
+  color: #333333;
+}
+
+.contribution-activity {
+  overflow: hidden;
+  margin-top: 25px;
+}
+
+.contribution-title {
+  float: left;
+  font-size: 16px;
+}
+.contribution-activity-period {
+  line-height: 15px;
+  border: solid 1px #E5E5E5;
+  border-radius: 3px;
+  float: right;
+  padding: 2px 6px;
+  color: #818181;
+  background: linear-gradient(#FCFCFC, #EFEFEF);
+  font-size: 13px;
+
+  span {
+    font-weight: bold;
+    font-size: 12px;
+    color: #333333;
+  }
+}
+
+.commits-rule {
+  margin-top: 20px;
+  position: relative;
+  text-align:center;
+}
+.commits-rule-center-line {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 50%;
+  border-bottom: solid 1px #E5E5E5;
+}
+.commits-info {
+  display: inline-block;
+  background-color: #fff;
+  margin:0 auto;
+}
+.commits-cnt {
+  margin: 0 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.commits-text {
+  font-size: 12px;
+  font-weight: bold;
+  color: #999999;
+}
+.commits-push {
+  margin-top: 15px;
+}
+.commits-push-info {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: bold;
+  color: #3D76C2;
+}
+.commits-term {
+  font-size:12px;
+  color: #999999;
+}
+
+.footer-nav {
+  overflow: hidden;
+
+  & > ul > li {
+    color: #767676;
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  a {
+    color: #3D76C2;
+    font-size: 11px;
+  }
+
+}
+
+.footer-left {
+  float: left;
+}
+.footer-right {
+  float: right;
+}
+
+.footer-ico {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+
+  svg {
+    color: #CCCCCC;
+  }
+}

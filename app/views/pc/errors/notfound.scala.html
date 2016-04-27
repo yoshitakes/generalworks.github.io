@@ -1,0 +1,17 @@
+@import models.Account
+
+@(message: String)(implicit requestHeader: RequestHeader)
+
+@pc.commonflame(account = None,
+title = "taluu エラー",
+description = "taluu エラー"){
+
+<section class="login_header">
+	<p class="login_header__catch">
+		<img src="@routes.Assets.versioned("images/mana.png")" width="100px" height="100px"><br><br>
+		お探しのページが見つかりません。<br>
+		再度試していただくか、<a href="mailto:cs@@manabook.me">カスタマーサポート</a>へご連絡ください。
+	</p>
+</section>
+
+}

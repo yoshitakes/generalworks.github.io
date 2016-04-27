@@ -1,0 +1,244 @@
+@import constants._
+@(login: Account)(implicit request: Request[AnyContent])
+
+@pc.commonflame(account = Some(login),
+        title = "ユーザー情報の編集",
+        description = "ユーザー情報の編集 manabook") {
+update contents.
+@*********************
+<script src='@routes.Assets.versioned("uploadifive-v1.2.2-standard/jquery.uploadifive.min.js")' type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("uploadifive-v1.2.2-standard/uploadifive.css")'>
+
+<div class="edit_page_title clearfix">
+		<a href="@routes.Accounts.index" class="btn_common--back">戻る</a>
+		<h1>マイアカウントの編集</h1>
+</div>
+
+<form method="post" action="@routes.Accounts.updateComplete()" id="account_data"  enctype="multipart/form-data" >
+	<section class="account">
+		<div class="account_form">
+			<div class="account__main">
+					<div class="box">
+			        <div class="account__main__photo mr30" id="profile_img_info">
+			            <img src='@login.imagePath' width="120" height="120">
+			        </div>
+			        <div class="box_flex">
+		            <div class="file btn_small mt10">
+		                <input type="file" name="imgfile" id="file_upload" accept="image/*" >プロフィール画像を変更する
+		            </div>
+		          </div>
+		          <input id="profile_img_bucket" type="hidden" name="profile_img_bucket" value="@login.imgBucket" />
+					</div>
+			</div>
+			<div class="form">
+	        <h2 class="form_title">
+	            名前<br>(※先生にだけ表示。<br>本名を記載してください)
+	        </h2>
+	        <div class="form_item pt20">
+	        	<input class="input_common" name="first_name" value="@login.fullName">
+	        </div>
+			</div>
+
+			<div class="form mt50">
+				<h2 class="form_title">
+					ニックネーム<br>(※サイト内の表示に<br>使います)
+				</h2>
+				<div class="form_item pt20">
+					<input class="input_common" name="nick_name" value="@login.nickName">
+				</div>
+			</div>
+
+			<div class="form mt40">
+	        <h2 class="form_title">
+	            プロフィール
+	        </h2>
+	        <div class="form_item">
+	        	<textarea class="textarea_common" name="profile">@login.profile</textarea>
+	        </div>
+			</div>
+
+			<div class="form">
+	        <h2 class="form_title">
+	            メールアドレス
+	        </h2>
+	        <div class="form_item">
+	        	<input class="input_common" name="email" value="@login.email">
+	        </div>
+			</div>
+	
+			<div class="form">
+	        <h2 class="form_title">
+	            パスワード
+	        </h2>
+	        <div class="form_item">
+				<a id="chg_pw_button" href="javascript:return false;" class="btn_common--gray--small">パスワードを変更する</a>
+				<span id="chg_pw" style="display:none">
+					<input placeholder="新しいパスワードを入力してください" class="input_common" name="password" id="pswd" type="password" value="">
+					<input placeholder="新しいパスワードを入力してください" class="input_common" name="password" id="pswd-text" type="text" value="" style="display:none">
+					<input type="checkbox" id="pswd-toggle" name="pswd-toggle" data-for="pswd" />
+					<label for="pswd-toggle">パスワードを表示</label>
+				</span>
+	        </div>
+			</div>
+	
+			<div class="form">
+		    <p class="mt30">
+		    	<input type="submit" class="btn_common" value="保存する">
+		    </p>
+			</div>
+	    
+	    <input type="hidden" name="account_id" value="@login.id">
+	    
+		</div>
+  </section>
+</form>
+<script>
+$(document).ready(function(){
+	$.fn.extend({
+	  togglePassword : function(config){
+        option = $.extend({
+            "postfix" : "-text"
+        }, config );
+        /* 入力内容を同期するfunction */
+        sync = function(){
+        	if(this.type) {
+				var i = this.type.toUpperCase() === "PASSWORD" ?
+					this.id + option.postfix :
+					this.id.replace( option.postfix, "" );
+				$( "#" + i ).val( $(this).val() );
+            }
+        };
+        /* 表示/非表示を切り替えるfunction */
+        toggle = function(){
+			if( this.checked ){
+				$.data( this, "pswd" ).hide();
+				$.data( this, "text" ).show();
+			} else {
+				$.data( this, "pswd" ).show();
+				$.data( this, "text" ).hide();
+			}
+			sync();
+        };
+        this.each( function(){
+            var id, pswd, text, check, handlers;
+            id = this.getAttribute( "data-for" );
+            pswd = $("#" + id );
+            text = $("#" + id + option.postfix );
+            check = $(this);
+            /* テキストフィールドのイベント */
+            handlers = { keyup : sync, blur : sync };
+            pswd.bind( handlers );
+            text.bind( handlers );
+            /* チェックボックスのイベント */
+            $.data( this, "pswd", pswd );
+            $.data( this, "text", text );
+            $(this).click( toggle );
+            /* 初期化 */
+            toggle.apply( this );
+			$('#pswd').val('');
+        });
+      }
+    });
+	$("#pswd-toggle").togglePassword();
+	$('#chg_pw_button').click(function(){
+		$(this).hide();
+		$('#chg_pw').show();
+			$('#pswd').val('');
+	});
+
+    $('#file_upload2').uploadifive({
+        'onInit': function closeKeepAlive() {
+                        if (/AppleWebKit|MSIE/.test(navigator.userAgent)) {
+                            $.ajax({ url: "/ping/close", async: false });
+                        }
+                    },
+        'formData': (new FormData($('#account_data').get()[0])),
+        'uploadScript' : '/account/fileupload',
+        // Put your options here
+        'buttonText': 'プロフィール画像を変更する',
+        'fileType': 'image/*',
+        'multi': false,
+        'width':'auto',
+        'height':'auto',
+        'itemTemplate' : '',
+        'fileObjName': 'imgfile',
+
+        'onUploadComplete': function(file, restext) {
+                var res = JSON.parse(restext);
+                console.log('file:'+ JSON.stringify(file));
+                console.log('res:'+ JSON.stringify(res));
+
+                var upFilePath = res['upFilePath'];
+                var imgSrc = '<img src="@Constants.AWS_S3_ENDPOINT/@Constants.AWS_S3_DIRECTORY_ACCOUNT/' + upFilePath + '" width="78" height="78" />';
+                $("#profile_img_info").html(imgSrc);
+                $("#profile_img_bucket").val(upFilePath);
+                this.uploadifive('clearQueue');
+            }
+    });
+
+
+
+    $('#file_upload').change( function () {
+        var img = '<div style="width:78px; height:78px; background-color:#dddddd; position:relative"><div id="progress_bar" style="background-color:#0ccb97; font-size:9px; position: absolute; bottom: 0;"></div></div>';
+        $("#profile_img_info").html(img);
+
+        $.ajax('/account/fileupload', {
+            method: 'POST',
+            async: true,
+            xhr : function(){
+                XHR = $.ajaxSettings.xhr();
+                if(XHR.upload){
+                    XHR.upload.addEventListener('progress',function(e){
+                        progre = parseInt(e.loaded/e.total*10000)/100 ;
+                        //console.log(progre+"%");
+                        $("#progress_bar").width(parseInt(progre/100*78*100)/100+"px");
+                        $("#progress_bar").height("9px");
+                        //$("#progress_bar").html(progre+"%");
+                    }, false);
+                }
+                return XHR;
+            },
+            contentType: false,
+            processData: false,
+            data: (new FormData($('#account_data').get()[0])),
+            dataType: 'json',
+            error: function() {
+                console.log('error');
+            },
+            success: function(res) {
+                console.log('success:'+ JSON.stringify(res));
+                var upFilePath = res['upFilePath'];
+                var imgSrc = '<img src="@Constants.AWS_S3_ENDPOINT/@Constants.AWS_S3_DIRECTORY_ACCOUNT/' + upFilePath + '" width="78" height="78" />';
+
+                // 変数の宣言
+                var fileList, file, src;
+                // ファイルリストを取得
+                fileList = document.getElementById("file_upload").files;
+                $("#profile_img_info").html("");
+                console.log(fileList);
+                console.log(fileList.length);
+
+                // ローカル画像を表示する (枚数分)
+                for(var i=0, l=fileList.length; l>i; i++) {
+                    // 対象のファイルを取得
+                    file = fileList[i];
+                    // ブラウザごとの違いをフォローする
+                    window.URL = window.URL || window.webkitURL;
+                    // Blob URLの作成
+                    src = window.URL.createObjectURL(file);
+                    // HTMLに書き出し
+                    console.log(src);
+                    $("#profile_img_info").append('<img src="' + src + '" width="78" height="78" />');
+                }
+
+//              //$("#profile_img_info").append(imgSrc);
+                $("#profile_img_bucket").val(upFilePath);
+                $("#progress_bar").remove();
+            }
+        });
+    });
+
+});
+</script>
+***********************@
+}

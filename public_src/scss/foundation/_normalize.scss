@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+/* @import "node_modules/node-normalize-scss/_normalize.scss"; */
+/*
+*/
+@import "node_modules/node-reset-scss/scss/_reset.scss";
+@import "node_modules/sanitize.css/lib/sanitize.sass";
+
+/* text boxで文字変換してる途中に文字が消えてしまう対応 */
+::selection {
+    color: inherit;
+}

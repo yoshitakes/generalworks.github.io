@@ -1,0 +1,91 @@
+@import constants.Constants
+@import util.playsome.RouterUtil
+
+@(account: Option[Account],
+title: String,
+description: String
+)(content: Html)(implicit request: RequestHeader)
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>@title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400">
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css?201604030013")'>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <meta name="keywords" content="教室運営,教室ホームページ作成,レッスン告知,レッスン管理,予約,予約管理,キャンセル受付け,キャンセル待ち,生徒管理,生徒連絡,連絡網,レッスンダイアリー,レッスン検索,料理教室,陶芸教室,絵画教室,華道,書道,英語教室,ピアノ教室">
+    <meta property="fb:app_id" content="@Constants.FacebookAppId" />
+
+    <title>@title</title>
+    <meta name="description" content="@description">
+        <meta property="og:title" content="@title" >
+    @if(true) {
+        <meta property="og:type" content="website">
+    } else {
+        <meta property="og:type" content="article"> @* トップページはwebsite、個別ページはarticle *@
+    }
+    @*
+        <meta property="og:image" content="@image" >
+    *@
+
+    <meta property="og:description" content="@description" >
+    @* <meta property="og:locale" content="言語" > *@
+    <meta property="og:url" content='@("https://" + Constants.WebApplicationHost + request.uri)' >
+    <meta property="og:site_name" content="taluu" >
+    @common.ga()
+</head>
+<body>
+
+<div class="body">
+  <header class="header">
+    <h1 class="header__site-logo"><a href="@routes.TaskAuthController.index" class="header__site-logo__link">taluu</a></h1>
+    <nav class="header__menu">
+      <ul>
+        <li><a class="header__menu project" href="@routes.ProjectAuthController.index">Project</a></li>
+        <li><a class="header__menu routien" href="@routes.RoutienAuthController.index">Routien</a></li>
+        <li><a class="header__menu label" href="@routes.LabelAuthController.index">Label</a></li>
+        <li><a class="header__menu snippet" href="@routes.SnippetAuthController.index">Snippet</a></li>
+        <li><a class="header__menu account" href="@routes.AccountAuthController.index">Account</a></li>
+        <li><a class="header__menu project" href="@routes.Login.logout">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  @if(request.flash.get("message")){
+  <section><!-- メッセージ表示欄 -->
+    <div class="text_completed">@Html(request.flash.get("message").getOrElse(""))</div>
+  </section>
+  }
+
+  <div class="container-main">
+    @content
+  </div>
+
+  @*
+  <footer class="footer-wrap">
+  <div id='footer'>
+    <nav class='footer-menu'>
+      <ul class='footer-menu-bottom'>
+        <li><a href="@routes.AboutController.about">about</a></li>
+        <li><a href="" target="_blank">how to use</a></li>
+        <li><a href="">contact</a></li>
+        <li><a href="@routes.AboutController.termsOfUse">ユーザー向け利用規約</a></li>
+        <li><a href="@routes.AboutController.privacy">プライバシー</a></li>
+      </ul>
+    </nav>
+  </div>
+  </footer>
+  *@
+
+</div>
+
+@* get jsrouter by playframework *@
+@helper.javascriptRouter("jsRoutes")(
+  RouterUtil.jsRouterList:_*
+)
+<script src='@routes.Assets.versioned("js/main.js")?ymd=20160322' type="text/javascript"></script>
+</body>
+</html>

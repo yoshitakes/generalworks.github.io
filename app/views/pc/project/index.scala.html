@@ -1,0 +1,59 @@
+@(login: Option[Account])(implicit request: Request[AnyContent])
+
+@pc.commonflame(account = login,
+          title = "project | taluu",
+          description = "project ") {
+
+<h1 class="project-header">プロジェクト一覧</h1>
+@login.map{acc=>
+  <div class="project-tables">
+    <div class="project-table">
+      <div class="project-table__add">
+        <a class="add-label project-table__add-box" href="javascript: void(0);">
+          <img class="project-table__add-img" height="25" width="25" src="@routes.Assets.versioned("images/icon-add.png")">
+          <span class="project-table__add-text">projectを追加</span>
+        </a>
+      </div>
+
+      @*
+      <div class="project-table__header">
+        <ul>
+          <li class="project-table__color">Color</li>
+          <li class="project-table__name">Label name</li>
+          <li class="project-table__gabage"></li>
+        </ul>
+      </div>
+      *@
+      <ul id="project-table">
+        @for(project <- acc.projects.filter(!_.archiveFlg).sortBy(_.ind)) {
+          @inc_project_line(project)
+        }
+      </ul>
+      <div class="project-table__add">
+        <a class="add-label project-table__add-box" href="javascript: void(0);">
+          <img class="project-table__add-img" height="25" width="25" src="@routes.Assets.versioned("images/icon-add.png")">
+          <span class="project-table__add-text">projectを追加</span>
+        </a>
+      </div>
+    </div>
+    <div class="project-table-archived">
+      <div class="project-archived__title">
+        <div>archived projects</div>
+        <!--<img src="@routes.Assets.versioned("images/icon-archive.png")">-->
+      </div>
+      <ul id="project-table-archived-sorted" class="project-table-archived-sorted">
+        @*
+        @for(labelTpl <- acc.labels.filter(_.archiveFlg).sortBy(_.ind).zipWithIndex) {
+          @inc_color_line(labelTpl._1)
+        }
+        *@
+      </ul>
+    </div>
+  </div>
+  <div>x座標：<span id="x"></span></div>
+  <div>y座標：<span id="y"></span></div>
+}.getOrElse{
+  <a href="@routes.LabelAuthController.index">ログイン</a>されていません。<a href="@routes.LabelAuthController.index">ログイン</a>してください。
+}
+}
+<script src='@routes.Assets.versioned("js/project.js")?ymd=20160422' type="text/javascript"></script>

@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+/* architectured by FLOCSS
+   参照 http://pepabo.github.io/docs/frontend/standard/css-architecture/
+
+├── assets
+│   └── scss
+│       ├── foundation
+│       │   ├── _normalize.scss    // イニシャライズ CSS
+│       │   ├── _typography.scss   // フォント
+│       │   └── _base.scss         // 背景
+│       ├── layout
+│       │   ├── _header.scss
+│       │   ├── _sidebar.scss
+│       │   └── _footer.scss
+│       ├── object
+│       │   ├── component
+│       │   │   ├── _button.scss
+│       │   │   ├── _grid.scss
+│       │   │   ├── _alert.scss
+│       │   │   └── _icon.scss
+│       │   ├── project
+│       │   │   ├── _article.scss  // コンテンツ・記事
+│       │   │   └── _product.scss  // 商品・ギャラリー
+│       │   └── utility
+│       │       ├── _align.scss    // 例外的に行うデザイン調整
+│       │       └── _helper.scss   // ヘルパー class
+│       ├── _settings.scss
+│       ├── common.scss
+│       └── pages
+│           ├── page_a.scss
+│           └── page_b.scss
+└── public
+    ├── css
+    ├── page_A.html
+    └── page_B.html
+
+  *frameworks
+  基本的にsassで使いやすそうなこの構成。http://mycoredump.hatenablog.com/entry/2015/02/20/175854
+  これが使う上で参考になる。
+  http://qiita.com/oreo3@github/items/8ce92be494ee4e3ee303
+  http://qiita.com/1000k/items/83e4ab79e0a00e68130e
+  http://qiita.com/Quramy/items/5491d8da29d1fe047464
+
+  npm install node-neat
+  npm install node-bourbon
+
+  #イニシャライズ
+  normalize.css http://necolas.github.io/normalize.css/
+  #レイアウト,グリッドシステム
+  bourbon neat http://qiita.com/inuscript/items/8f54b7baeb61a3341c6d
+  #ユーティリティ/ヘルパー
+  bourbon
+  #コンポーネント
+  ionic (*テスト的に使って見る
+*/
+
+@import "../node_modules/bootstrap-sass";
+
+/*
+@import "settings";
+
+@import "foundation/normalize";
+@import "foundation/typography";
+@import "foundation/base";
+
+@import "layout/header";
+@import "layout/article";
+@import "layout/footer";
+
+@import "object/component/button";
+@import "object/component/grid";
+@import "object/component/alert";
+@import "object/component/icon";
+
+@import "object/project/label";
+@import "object/project/task";
+@import "object/project/project";
+@import "object/project/routien";
+@import "object/project/snippet";
+
+@import "object/utility/align";
+@import "object/utility/helper";
+@import "object/utility/utility";
+*/

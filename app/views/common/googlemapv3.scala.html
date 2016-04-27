@@ -1,0 +1,61 @@
+@(address: String)
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+      var firstViewMap = true;
+      var geocoder, map;
+      var overlays = [];
+      /* ジオコードオブジェクト */
+      geocoder = new google.maps.Geocoder();
+
+      $('#togglemap').click(function () {
+          if (firstViewMap) {
+                firstViewMap = false;
+                $('#map_canvas').show();
+
+                geocoder.geocode( { 'address': "@address", 'language': 'ja'}, function(results, status) {
+                    if(status==google.maps.GeocoderStatus.OK){
+
+                        /* 地図の中心点を変更 */
+                        /* 緯度・経度：日本 */
+                        //var myLatlng=new google.maps.LatLng(36.204824,138.252924);
+                        /* 地図のオプション設定 */
+                        var myOptions={
+                            /*初期のズーム レベル */
+                            zoom: 2,
+                            /* 地図の中心点 */
+                            center: results[0].geometry.location,
+                            /* 地図タイプ */
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        /* 地図オブジェクト */
+                        map=new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                        //map.setCenter(results[0].geometry.location);
+                        /* 指定された境界に合うように地図を表示 */
+                        if(results[0].geometry.bounds)map.fitBounds(results[0].geometry.bounds);
+                        if(results[0].geometry.viewport)map.fitBounds(results[0].geometry.viewport);
+                        /* マーカー */
+                        var marker = new google.maps.Marker({
+                            map:map,
+                            position: results[0].geometry.location
+                        });
+                        var contentString="@address";
+                        /* 情報ウィンドウ */
+                        infowindow=new google.maps.InfoWindow({
+                            content: contentString,
+                            maxWidth: 250
+                        });
+                        infowindow.open(map, marker);
+                        overlays=[marker, infowindow]
+                    }else{
+                        console.log("ジオコードの取得に失敗しました\n"+status);
+                    }
+                });
+          } else {
+              $('#map_canvas').toggle();
+          }
+      });
+    });
+
+</script>
